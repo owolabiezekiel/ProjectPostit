@@ -1,0 +1,55 @@
+.formContainers {
+    background: #fcfcfc;
+    width: 40%;
+    height: auto;
+    margin: auto;
+    margin-top: 10%;
+}
+
+body {
+    background: #fff;
+}
+
+.home-text {
+    color: red;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Tahoma;
+    line-height: 2;
+}
+
+.question {
+    padding: 10px;
+}
+
+.register {
+    color: blue;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: Tahoma;
+    line-height: 2;
+}
+
+.mine {
+    width: 100%;
+    height: 50px;
+    background: grey;
+    color: white;
+    float: right;
+}
+
+li {
+    list-style-type: none;
+}
+
+.addUser {
+    padding-top: 10%;
+    width: 10%;
+    margin: auto;
+    line-height: 5;
+}
+
+.navbar-post-message {
+    background: grey;
+    width: 100%;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title> POSTIT-post message </title>
+    <link rel="stylesheet" href="boot/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <style>
+        .nav-link {
+            color: #fff;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <a class="navbar-brand" href="#">PostIt</a>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Post a Message </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="creategroup.html">Create a group</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 align="center"> Post Message </h1>
+        </div>
+    </div>
+    <div class="container" style="background: rgba(147, 158, 173, 0.5); padding: 15px">
+        <form>
+            <div class="form-group text-center">
+                <label for="exampleInputEmail1"><b>Post A Message to Group: {Group Name}</b></label> <br/>Set message priority<select class="form control">
+                  <option value="normal">Normal</option>
+                <option value="urgent">Urgent</option>
+                <option value="critical">Critical</option>
+                </select>
+
+                <br/> Message: <br/>
+                <textarea rows="10" cols="50"></textarea><br>
+                <button class="btn btn-success"> Post Message </button>
+            </div>
+
+</body>
+<script type="text/javascript" src="boot/js/bootstrap.js">
+</script>
+
+</html>
