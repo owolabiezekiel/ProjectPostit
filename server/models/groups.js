@@ -9,16 +9,21 @@ module.exports = function(sequelize, DataTypes) {
         groupcreator: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        messages: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
     }, {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
-                Groups.belongsToMany(Users, {
-                    through: 'user_groups',
+                Groups.belongsToMany(models.Users, {
+                    through: 'UserGroups',
                 });
-
-                Groups.hasMany(Messages, { foreignKey: 'countryCode', sourceKey: 'isoCode' });
+                Groups.hasMany(models.Messages, {
+                    through: 'UserGroups',
+                });
             }
         }
     });

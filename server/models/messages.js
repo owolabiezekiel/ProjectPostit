@@ -10,11 +10,16 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
+        message: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
     }, {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
-                Messages.belongsTo(Groups, { foreignKey: 'countryCode', targetKey: 'isoCode' });
+                Messages.belongsTo(models.Groups);
+                Messages.belongsTo(models.Users);
             }
         }
     });
