@@ -14,7 +14,11 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
-                Groups.belongsTo(Users);
+                Groups.belongsToMany(Users, {
+                    through: 'user_groups',
+                });
+
+                Groups.hasMany(Messages, { foreignKey: 'countryCode', sourceKey: 'isoCode' });
             }
         }
     });

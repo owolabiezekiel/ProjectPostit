@@ -25,9 +25,8 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             // associations can be defined here
             associate: (models) => {
-                Users.hasMany(models.Groups, {
-
-                    as: 'userGroup',
+                Users.belongsToMany(Groups, {
+                    through: 'user_groups',
                 });
             },
         }
