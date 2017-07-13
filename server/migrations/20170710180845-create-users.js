@@ -17,7 +17,7 @@ module.exports = {
                         args: [6, 15],
                         msg: 'Please supply a username in the range of 6 - 15 characters'
                     },
-                    isAlspanumeric: {
+                    isAlphanumeric: {
                         args: true,
                         msg: 'Username can only contain alphanumeric characters',
                     },
@@ -27,6 +27,12 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
                 unique: true,
+                validate: {
+                    isEmail: {
+                        args: true,
+                        msg: 'This email address is invalid'
+                    }
+                }
             },
             password: {
                 type: Sequelize.STRING,
@@ -35,11 +41,7 @@ module.exports = {
                     len: {
                         args: [6, 15],
                         msg: 'Please supply a password in the range of 6 - 15 characters',
-                    },
-                    isNumeric: {
-                        args: true,
-                        msg: "Message can only be Numeric characters",
-                    },
+                    }
                 },
             },
             phonenumber: {
@@ -49,6 +51,10 @@ module.exports = {
                 validate: {
                     args: [6, 15],
                     msg: 'Please supply a phone number in the range of 10 - 20 characters',
+                },
+                isNumeric: {
+                    args: true,
+                    msg: "Phone number can only be Numeric characters",
                 },
             },
             createdAt: {

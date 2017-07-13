@@ -1,23 +1,20 @@
-'use strict';
 module.exports = {
-    up: function(queryInterface, Sequelize) {
-        return queryInterface.createTable('Messages', {
+    up: (queryInterface, Sequelize) =>
+        queryInterface.createTable('Messages', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            groupid: {
+            content: {
                 type: Sequelize.STRING,
-                allowNull: true,
-
+                allowNull: false,
             },
-            read: {
-                type: Sequelize.BOOLEAN
-            },
-            message: {
-                type: Sequelize.TEXT,
+            priority: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                defaultValue: 'Normal',
             },
             createdAt: {
                 allowNull: false,
@@ -26,10 +23,25 @@ module.exports = {
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE
-            }
-        });
-    },
-    down: function(queryInterface, Sequelize) {
-        return queryInterface.dropTable('Messages');
-    }
+            },
+            groupId: {
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Groups',
+                    key: 'id',
+                    as: 'groupId',
+                }
+            },
+            senderId: {
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Users',
+                    key: 'id',
+                    as: 'senderId',
+                }
+            },
+        }),
+    down: queryInterface => queryInterface.dropTable('Messages')
 };

@@ -1,41 +1,59 @@
-const Users = require('../models').Users;
+const User = require('../models').Users;
+const jwt = require('jsonwebtoken');
 
 module.exports = {
-    // function to create a group with the post method
     signup(req, res) {
-        return Users
+        return User
             .create({
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
-                phonenumber: req.body.phonenumber
+                phonenumber: req.body.phonenumber,
             })
-            .then(users => res.status(201).send(users))
-            .catch(error => res.status(400).send(error));
-    },
-    // function to return all groups with the get method
-    list(req, res) {
-        return Users
-            .all()
-            .then(users => res.status(200).send(users))
+            .then((user) => {
+                const token = jwt.sign({
+                    userId: user.id
+                }, 'Abracadabra', {
+                    expiresIn: '24h' // expires in 24 hours
+                });
+
+                // Return the information including token as JSON Value
+                res.json({
+                    success: true,
+                    message: 'Token Generated. Signup successful!',
+                    token,
+                });
+            })
             .catch(error => res.status(400).send(error));
     },
 
     signin(req, res) {
-        return Users
+        return User
             .findOne({
                 where: {
-                    username: req.body.username,
-                    password: req.body.password,
+                    username: req.body.username
                 }
-            })
-            .then(users => {
-                if (users) {
-                    res.status(201).send({ success: true, message: "You are already a member" });
+            }).then((user) => {
+                if (!user) {
+                    res.status(404).send({ msg: 'User not found' });
+                }
+
+                if (user.password == req.body.password) {
+                    const token = jwt.sign({
+                        userId: user.id
+                    }, 'Abracadabra', {
+                        expiresIn: '24h' // expires in 24 hours
+                    });
+
+                    // Return the information including token as JSON Value
+                    res.json({
+                        success: true,
+                        message: 'Token Generated. Signin successful!',
+                        token,
+                    });
                 } else {
-                    res.status(401).send({ success: false, message: "Username or password could not be verified" });
+                    res.status(404).send({ msg: 'Password is incorrect' });
                 }
-            })
-            .catch(error => res.status(400).send(error));
+            });
     }
 };

@@ -16,10 +16,10 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "postgres",
-        "password": "paaspaas",
-        "database": "PostIt",
-        "host": "127.0.0.1",
+        "username": "hkprejhw",
+        "password": "hkprejhwcNr0TSDKr4KHi7Xz78P3EDMnBI-0vh9-",
+        "database": "hkprejhw",
+        "host": "babar.elephantsql.com",
         "port": "5432",
         "dialect": "postgres"
     }

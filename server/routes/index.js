@@ -1,19 +1,23 @@
-// this is the file that handles all routes
-const usersController = require('../controllers').user;
-const groupsController = require('../controllers').group;
-const messagesController = require('../controllers').message;
+import authenticate from '../middlewares/authenticate';
+
+const userController = require('../controllers').user;
+const groupController = require('../controllers').group;
+const messageController = require('../controllers').message;
 
 module.exports = (app) => {
-    app.get('/api', (req, res) => res.status(200).send({
-        message: 'Welcome to the Todos API!',
+    app.post('/api/user/signup', userController.signup);
+    app.post('/api/user/signin', userController.signin);
+    app.use(authenticate.verifyUser);
+    app.post('/api/group', groupController.create);
+    app.post('/api/group/:groupId/user', groupController.addUser);
+    app.post('/api/group/:groupId/message', messageController.create);
+    app.get('/api/group/:groupId/messages', messageController.list);
+
+    app.get('*', (req, res) => res.status(404).send({
+        message: 'The page you are looking for does not exist',
     }));
 
-    app.post('/api/user/signup', usersController.signup); // to create a new user
-    app.get('/api/user/login', usersController.signin); // to return list of users
-
-    app.post('/api/group', groupsController.create); // to create a new group
-    app.get('/api/group', groupsController.list); // to return list of groups
-
-    app.post('/api/messages', messagesController.create); // to add new messages to a group message
-    app.get('/api/messages', messagesController.list); // to retrieve all messages in a group
+    app.post('*', (req, res) => res.status(500).send({
+        message: 'Sorry there was a server error',
+    }));
 };
