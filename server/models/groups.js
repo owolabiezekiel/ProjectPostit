@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         classMethods: {
             associate: (models) => {
                 Groups.belongsToMany(models.Users, {
-                    through: 'UserGroup',
+                    through: 'UserGroups',
                     foreignKey: 'groupId',
                     constraints: false,
                 });

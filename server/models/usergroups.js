@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const UserGroup = sequelize.define('UserGroup', {
+    const UserGroups = sequelize.define('UserGroups', {
         userId: DataTypes.INTEGER,
         groupId: DataTypes.INTEGER
     }, {
@@ -10,5 +10,5 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     });
-    return UserGroup;
+    return UserGroups;
 };
