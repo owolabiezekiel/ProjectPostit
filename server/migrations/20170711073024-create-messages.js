@@ -1,30 +1,47 @@
-'use strict';
 module.exports = {
-  up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Messages', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      groupid: {
-        type: Sequelize.STRING
-      },
-      read: {
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Messages');
-  }
+    up: (queryInterface, Sequelize) =>
+        queryInterface.createTable('Messages', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            content: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            priority: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                defaultValue: 'Normal',
+            },
+            createdAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            },
+            groupId: {
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Groups',
+                    key: 'id',
+                    as: 'groupId',
+                }
+            },
+            senderId: {
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Users',
+                    key: 'id',
+                    as: 'senderId',
+                }
+            },
+        }),
+    down: queryInterface => queryInterface.dropTable('Messages')
 };

@@ -1,21 +1,43 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
-    var Messages = sequelize.define('Messages', {
-        groupid: {
+module.exports = (sequelize, DataTypes) => {
+    const Messages = sequelize.define('Messages', {
+        content: {
             type: DataTypes.STRING,
             allowNull: false,
-
         },
-        read: {
-            type: DataTypes.BOOLEAN,
+        priority: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Normal',
+            validate: {
+                isIn: {
+                    args: [
+                        ['Normal', 'Urgent', 'Critical']
+                    ],
+                    msg: 'Normal, Urgent or Critical Required'
+                }
+            }
+        },
+        groupId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
+        senderId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     }, {
         classMethods: {
-            associate: function(models) {
-                // associations can be defined here
-                Messages.belongsTo(Groups, { foreignKey: 'countryCode', targetKey: 'isoCode' });
-            }
+            associate: (models) => {
+                Messages.belongsTo(models.Groups, {
+                    foreignKey: 'groupId',
+                    onDelete: 'CASCADE',
+                });
+                Messages.belongsTo(models.Users, {
+                    foreignKey: 'senderId',
+                    onDelete: 'CASCADE',
+                });
+            },
         }
     });
     return Messages;

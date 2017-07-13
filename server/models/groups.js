@@ -1,24 +1,25 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
-    var Groups = sequelize.define('Groups', {
-        groupname: {
+module.exports = (sequelize, DataTypes) => {
+    const Groups = sequelize.define('Groups', {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
-        },
-        groupcreator: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            unique: {
+                args: true,
+                msg: 'Group name already exists. Use another name'
+            }
         }
     }, {
         classMethods: {
-            associate: function(models) {
-                // associations can be defined here
-                Groups.belongsToMany(Users, {
-                    through: 'user_groups',
+            associate: (models) => {
+                Groups.belongsToMany(models.Users, {
+                    through: 'UserGroups',
+                    foreignKey: 'groupId',
+                    constraints: false,
                 });
-
-                Groups.hasMany(Messages, { foreignKey: 'countryCode', sourceKey: 'isoCode' });
+                Groups.hasMany(models.Messages, {
+                    foreignKey: 'groupId'
+                });
             }
         }
     });
