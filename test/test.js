@@ -14,7 +14,7 @@ describe('status 200', () => {
         const user = {
             username: "oooooooooooo",
             email: "akiiii30@gmail.com",
-            password: "ewa"
+            password: "tobeychukwu"
         }
         chai.request(app)
             .post('/api/users/signup')
@@ -34,7 +34,7 @@ describe('status 400', () => {
         const user = {
             username: "oooooooooooo",
             email: "akiiiiiiii30@gmail.com",
-            password: "ewa"
+            password: "tobeychukwu"
         }
         chai.request(app)
             .post('/api/users/signup')
@@ -54,7 +54,7 @@ describe('status 400', () => {
         const user = {
             username: "oooooooooooooooooooooooooo",
             email: "akiiii30@gmail.com",
-            password: "ewa"
+            password: "tobeychukwu"
         }
         chai.request(app)
             .post('/api/users/signup')
@@ -92,7 +92,7 @@ describe('status 404', () => {
     it('throws error for invalid user', (done) => {
       const user = {
         username: 'hhhhhhhhhhhhhhhhhhhhhhhhh',
-        password: 'ewa'
+        password: 'tobeychukwu'
       };
       chai.request(app)
         .post('/api/users/signin')
